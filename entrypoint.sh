@@ -20,12 +20,8 @@ gist_endpoint=$gist_api$gist_id
 title=$(echo "$3" | sed 's/\"/\\"/g')
 description=$(echo "$4" | sed 's/\"/\\"/g')
 
-echo $5
-raw_content=encov $5
-echo $raw_content
-
 [[ -r "$5" ]] || Error "The file '$5' does not exist or is not readable" 1
-content=$(sed -e 's/\\/\\\\/g' -e 's/\t/\\t/g' -e 's/\"/\\"/g' -e 's/\r//g' "$raw_content" | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g')
+content=$(sed -e 's/\\/\\\\/g' -e 's/\t/\\t/g' -e 's/\"/\\"/g' -e 's/\r//g' "$5" | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g')
 
 echo '{"description": "'"$description"'", "files": {"'"$title"'": {"content": "'"$content"'"}}}' | iconv -t utf-8 > postContent.json || Error 'Failed to write temp json file' 2
 
