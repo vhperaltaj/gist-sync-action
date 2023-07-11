@@ -24,6 +24,7 @@ description=$(echo "$4" | sed 's/\"/\\"/g')
 content=$(sed -e 's/\\/\\\\/g' -e 's/\t/\\t/g' -e 's/\"/\\"/g' -e 's/\r//g' "$5" | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g')
 
 echo '{"description": "'"$description"'", "files": {"'"$title"'": {"content": "'"$content"'"}}}' > postContent.json || Error 'Failed to write temp json file' 2
+echo '{"description": "'"$description"'", "files": {"'"$title"'": {"content": "'"$content"'"}}}'
 
 curl -s -X PATCH \
     -H "Content-Type: application/json" \
