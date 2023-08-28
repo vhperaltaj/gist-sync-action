@@ -17,6 +17,9 @@ inputs:
   github_file:
     description: "The Filename with the contents we want to mirror"
     required: true
+  file_encoding:
+    description: "File encoding info WINDOWS-1252, UTF-8 etc"
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -26,6 +29,7 @@ runs:
     - ${{ inputs.gist_title }}
     - ${{ inputs.gist_description }}
     - ${{ inputs.github_file }}
+    - ${{ inputs.file_encoding }}
 branding:
   icon: 'code'
   color: 'green'
