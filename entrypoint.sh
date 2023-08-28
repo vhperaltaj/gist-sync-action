@@ -25,7 +25,7 @@ description=$(echo "$4" | sed 's/\"/\\"/g')
 echo "PASS FILED"
 echo "$5"
 
-raw_data=$(echo "$5" | iconv -f WINDOWS-1252 -t UTF-8)
+raw_data=$(iconv -f WINDOWS-1252 -t UTF-8 "$5")
 
 echo "RAW DATA:"
 echo "$raw_data"
