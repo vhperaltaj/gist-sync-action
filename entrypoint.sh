@@ -22,17 +22,11 @@ description=$(echo "$4" | sed 's/\"/\\"/g')
 
 [[ -r "$5" ]] || Error "The file '$5' does not exist or is not readable" 1
 
-echo "PASS FILED"
-echo "$5"
-
 raw_data=$(iconv -f WINDOWS-1252 -t UTF-8 "$5")
 
-echo "RAW DATA:"
-echo "$raw_data"
+echo "$raw_data" > encoded_file.txt
 
-content=$(sed -e 's/\\/\\\\/g' -e 's/\t/\\t/g' -e 's/\"/\\"/g' -e 's/\r//g' "$raw_data" | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g')
-echo "CONTENT:"
-echo "$content"
+content=$(sed -e 's/\\/\\\\/g' -e 's/\t/\\t/g' -e 's/\"/\\"/g' -e 's/\r//g' encoded_file.txt | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g')
 
 echo '{"description": "'"$description"'", "files": {"'"$title"'": {"content": "'"$content"'"}}}' > postContent.json || Error 'Failed to write temp json file' 2
 
