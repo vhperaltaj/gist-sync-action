@@ -5,6 +5,7 @@
 # $3 :: ${{ inputs.gist_title }}
 # $4 :: ${{ inputs.gist_description }}
 # $5 :: ${{ inputs.github_file }}
+# $6 :: ${{ inputs.file_encoding }}
 
 Error() {
     echo "$1"
@@ -22,7 +23,7 @@ description=$(echo "$4" | sed 's/\"/\\"/g')
 
 [[ -r "$5" ]] || Error "The file '$5' does not exist or is not readable" 1
 
-raw_data=$(iconv -f WINDOWS-1252 -t UTF-8 "$5")
+raw_data=$(iconv -f "$6" -t UTF-8 "$5")
 
 echo "$raw_data" > encoded_file.txt
 
