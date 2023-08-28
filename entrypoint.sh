@@ -24,7 +24,11 @@ description=$(echo "$4" | sed 's/\"/\\"/g')
 
 raw_data=$(echo "$5" | iconv -f WINDOWS-1252 -t UTF-8)
 
+echo "$raw_data"
+
 content=$(sed -e 's/\\/\\\\/g' -e 's/\t/\\t/g' -e 's/\"/\\"/g' -e 's/\r//g' "$raw_data" | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g')
+
+echo "$content"
 
 echo '{"description": "'"$description"'", "files": {"'"$title"'": {"content": "'"$content"'"}}}' > postContent.json || Error 'Failed to write temp json file' 2
 
