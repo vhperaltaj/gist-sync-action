@@ -22,6 +22,9 @@ description=$(echo "$4" | sed 's/\"/\\"/g')
 
 [[ -r "$5" ]] || Error "The file '$5' does not exist or is not readable" 1
 
+echo "PASS FILED"
+echo "$5"
+
 raw_data=$(echo "$5" | iconv -f WINDOWS-1252 -t UTF-8)
 
 echo "RAW DATA:"
