@@ -25,4 +25,5 @@ jobs:
           gist_title: Example Gist Title
           gist_description: Example Gist Description
           github_file: filename-to-sync
+          file_encoding: file-encoding
 ```
